@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forex Lot Size Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background: #1e293b;
+        padding: 30px;
+        border-radius: 12px;
+        width: 350px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #22c55e;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #16a34a;
+    }
+
+    .result {
+        margin-top: 15px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .footer a {
+        color: #38bdf8;
+        text-decoration: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Lot Size Calculator</h2>
+
+    <input type="number" id="balance" placeholder="Account Balance ($)">
+    <input type="number" id="risk" placeholder="Risk (%)">
+    <input type="number" id="stoploss" placeholder="Stop Loss (pips)">
+
+    <button onclick="calculateLot()">Calculate</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="footer">
+        Powered by <a href="https://myfxback.com" target="_blank">myfxback.com</a>
+    </div>
+</div>
+
+<script>
+function calculateLot() {
+    let balance = document.getElementById("balance").value;
+    let risk = document.getElementById("risk").value;
+    let stoploss = document.getElementById("stoploss").value;  
+
+    if(balance === "" || risk === "" || stoploss === "") {
+        document.getElementById("result").innerHTML = "Please fill all fields";
+        return;
+    }
+
+    let riskAmount = balance * (risk / 100);
+    let lotSize = riskAmount / (stoploss * 10);
+
+    document.getElementById("result").innerHTML =
+        "Recommended Lot Size: <b>" + lotSize.toFixed(2) + "</b>";
+}
+</script>
+
+</body>
+</html>
